@@ -2,7 +2,8 @@ sudo: required
 servics:
   - docker
 
-before_install: -docker build -t sameureka/react-test -f ./client/Dockerfile.dev ./client
+before_install:
+  - docker build -t sameureka/react-test -f ./client/Dockerfile.dev ./client
 
 script:
   - docker run -e CI=true sameureka/react-test npm test
