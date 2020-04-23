@@ -1,0 +1,19 @@
+sudo: required
+servics:
+  - docker
+
+before_install: -docker build -t sameureka/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true sameureka/react-test npm test
+
+after_success:
+  - docker build -t sameureka/multi-client ./client
+  - docker build -t sameureka/multi-nginx ./nginx
+  - docker build -t sameureka/multi-server ./server
+  - docker build -t sameureka/multi-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push sameureka/multi-client
+  - docker push sameureka/multi-nginx
+  - docker push sameureka/multi-server
+  - docker push sameureka/multi-worker
