@@ -26,7 +26,7 @@
       "name": "nginx",
       "image": "sameureka/multi-nginx",
       "hostname": "web",
-      "essential": true,,
+      "essential": true,
       "memory": 128,
       "portMappings": [
         {
